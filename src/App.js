@@ -44,7 +44,6 @@ function Timer() {
 
 function App() {
   const date = Timer();
-  // const timeSplit = date.getHours().split('')
 
   // append leading 0 if length of string is only 1
   let hours = date.getHours().toString();
@@ -52,12 +51,12 @@ function App() {
   let minutes = date.getMinutes().toString();
   minutes = minutes.length > 1 ? minutes: ("0" + minutes);
 
-  let seconds = date.getSeconds().toString();
-  seconds = seconds.length > 1 ? seconds: ("0" + seconds);
+  // let seconds = date.getSeconds().toString();
+  // seconds = seconds.length > 1 ? seconds: ("0" + seconds);
  
   const showTime = hours 
-      + ':' + minutes 
-      + ":" + seconds;
+      + ':' + minutes;
+      // + ":" + seconds;
   const showTimeDigits = showTime.split('');
 
   let listItems = [];
@@ -76,8 +75,8 @@ function App() {
 
   return (
       <div className="App">
-          <h1 align="center">Current Time</h1>
-          <h2 align="center"> {showTime}</h2>
+          {/* <h1 align="center">Current Time</h1>
+          <h2 align="center"> {showTime}</h2> */}
          
           <div align="center" className="digit-container">
             {listItems}
