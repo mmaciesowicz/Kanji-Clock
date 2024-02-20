@@ -22,4 +22,26 @@
     flex-wrap: nowrap;
     flex-direction: row; 
     justify-content: center;
+    pointer-events: none; /* Disable mouse highlights */
+}
+
+.title {
+  font-size: 7.6vmin;
+  letter-spacing: 3px;
+  margin-bottom: 3vmin;
+}
+
+.title-container {
+  color: #231f20;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 51rem;
+  width: 100%;
+}
+
+.credit {
+  font-size: 1.3ric;
+  margin-bottom: -8px;
 }

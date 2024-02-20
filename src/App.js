@@ -63,7 +63,6 @@ function App() {
   let d;
   showTimeDigits.forEach((element) => {
     d = digitsMap.get(element);
-    console.log(element);
     if (element === ":") {
       listItems.push(<img src={d} className="digit colon" alt="Colon" />);
     }
@@ -75,11 +74,15 @@ function App() {
 
   return (
       <div className="App">
-          {/* <h1 align="center">Current Time</h1>
-          <h2 align="center"> {showTime}</h2> */}
-         
           <div align="center" className="digit-container">
             {listItems}
+          </div>
+          <div className="title-container">
+            <h1 className="title" align="center">姉睇</h1>
+            <div className="credit-container">
+              <h2 className="credit" align="center">Designed by Declan Boushy</h2> 
+              <h2 className="credit" align="center">Developed by Matthew Maciesowicz</h2>
+            </div>
           </div>
       </div>
   );
