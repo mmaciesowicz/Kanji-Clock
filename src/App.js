@@ -10,7 +10,7 @@ import digit7 from './images/Digit7.svg';
 import digit8 from './images/Digit8.svg';
 import digit9 from './images/Digit9.svg';
 import colon from './images/Colon.svg';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 const digitsMap = new Map([
@@ -29,15 +29,27 @@ const digitsMap = new Map([
 
 
 function Timer() {
-  const [time, setTime] = useState(new Date());
+  let ctime  = new Date();
+  const [time, setTime] = useState(ctime);
+  
+  const UpdateTime=()=>{
+    ctime =  new Date();
+    setTime(ctime)
+  }
+  setInterval(UpdateTime)
+  // const intervalId = useMemo(
+  //   () => {setTime(new Date());}
+  //   [time]
+  // );
+  
+  // useEffect(() => {
+    
+  //   const intervalId = setInterval(() => {
+  //     setTime(new Date());
+  //   }, 1000)
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTime(new Date());
-    }, 1000)
-
-    return () => clearInterval(intervalId);
-  }, [])
+  //   return () => clearInterval(intervalId);
+  // }, [])
 
   return time;
 }
@@ -77,13 +89,13 @@ function App() {
           <div align="center" className="digit-container">
             {listItems}
           </div>
-          <div className="title-container">
+          {/* <div className="title-container">
             <h1 className="title" align="center">姉睇</h1>
             <div className="credit-container">
               <h2 className="credit" align="center">Designed by Declan Boushy</h2> 
               <h2 className="credit" align="center">Developed by Matthew Maciesowicz</h2>
             </div>
-          </div>
+          </div> */}
       </div>
   );
 }
