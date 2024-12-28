@@ -31,13 +31,33 @@ function App() {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    // Update the time every second
-    const intervalId = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(intervalId);
+    // Align the first update to the next exact second
+    const update = () => setTime(new Date());
+    const now = new Date();
+    const delay = 1000 - now.getMilliseconds(); // Time until the next exact second
+
+    // Set the initial timeout
+    const timeoutId = setTimeout(() => {
+      update();
+      // Start the interval after syncing to the system clock
+      const intervalId = setInterval(update, 1000);
+
+      // Cleanup interval on unmount
+      return () => clearInterval(intervalId);
+    }, delay);
+
+    // Cleanup timeout on unmount
+    return () => clearTimeout(timeoutId);
   }, []);
 
   // Convert time to a string and map digits to images
-  const timeString = time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", /* second: "2-digit," */ hour12: false, });
+  const timeString = time.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    /* second: "2-digit", */
+    hour12: false,
+  });
+
   const timeImages = timeString.split("").map((char, index) => {
     const imageSrc = digitsMap.get(char);
     if (!imageSrc) return null;
@@ -48,37 +68,55 @@ function App() {
     return <img key={index} src={imageSrc} alt={char} style={imageStyle} />;
   });
 
-    return (
-      <div>
-        <div className="digit-container">
-            <div align="center" style={styles.clock}>{timeImages}</div>
-            {/* <div className="title-container">
+  return (
+    <div>
+      <div style={styles.numberedClock}>
+      {time.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      })}
+      </div>
+      
+      <div className="digit-container">
+        <div align="center" style={styles.clock}>
+          {timeImages}
+        </div>
+        {/* Uncomment the title and credits if needed */}
+        {/* <div className="title-container">
               <h1 className="title" align="center">姉睇</h1>
               <div className="credit-container">
                 <h2 className="credit" align="center">Designed by Declan Boushy</h2> 
                 <h2 className="credit" align="center">Developed by Matthew Maciesowicz</h2>
               </div>
             </div> */}
-            
-        </div> 
-        {time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, })}
+      </div>
     </div>
-    );
+  );
 }
 
 const styles = {
+  numberedClock: {
+    position: "absolute",
+    top: "0.5vw",
+    left: "0.5vw",
+    fontSize: "30px"
+  },
   clock: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    pointerEvents: "none",
+    userSelect: "none"
   },
   digit: {
-    width: "12vw",
-    margin: "0 1vw",
+    // width: "12vw",
+    margin: "0 2vw",
   },
   colon: {
-    width: "2vw",
-    margin: "0 1vw",
+    width: "1.5vw",
+    margin: "0 2vw",
   },
 };
 

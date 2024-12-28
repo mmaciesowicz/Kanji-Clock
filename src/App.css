@@ -1,12 +1,11 @@
 .digit-container {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: row; 
-    justify-content: center;
-    pointer-events: none; /* Disable mouse highlights */
+    padding: 0 3vw; /* Add desired padding */
+    box-sizing: border-box; /* Ensures padding is included in width */
+    text-align: center;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none; /* Safari and Chrome */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer and Edge */
 }
