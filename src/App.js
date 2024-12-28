@@ -10,7 +10,7 @@ import digit7 from './images/Digit7.svg';
 import digit8 from './images/Digit8.svg';
 import digit9 from './images/Digit9.svg';
 import colon from './images/Colon.svg';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 const digitsMap = new Map([
@@ -27,77 +27,59 @@ const digitsMap = new Map([
   [":", colon],
 ]);
 
-
-function Timer() {
-  let ctime  = new Date();
-  const [time, setTime] = useState(ctime);
-  
-  const UpdateTime=()=>{
-    ctime =  new Date();
-    setTime(ctime)
-  }
-  setInterval(UpdateTime)
-  // const intervalId = useMemo(
-  //   () => {setTime(new Date());}
-  //   [time]
-  // );
-  
-  // useEffect(() => {
-    
-  //   const intervalId = setInterval(() => {
-  //     setTime(new Date());
-  //   }, 1000)
-
-  //   return () => clearInterval(intervalId);
-  // }, [])
-
-  return time;
-}
-
 function App() {
-  const date = Timer();
+  const [time, setTime] = useState(new Date());
 
-  // append leading 0 if length of string is only 1
-  let hours = date.getHours().toString();
-  hours = hours.length > 1 ? hours : ("0" + hours);
-  let minutes = date.getMinutes().toString();
-  minutes = minutes.length > 1 ? minutes: ("0" + minutes);
+  useEffect(() => {
+    // Update the time every second
+    const intervalId = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(intervalId);
+  }, []);
 
-  // let seconds = date.getSeconds().toString();
-  // seconds = seconds.length > 1 ? seconds: ("0" + seconds);
- 
-  const showTime = hours 
-      + ':' + minutes;
-      // + ":" + seconds;
-  const showTimeDigits = showTime.split('');
+  // Convert time to a string and map digits to images
+  const timeString = time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", /* second: "2-digit," */ hour12: false, });
+  const timeImages = timeString.split("").map((char, index) => {
+    const imageSrc = digitsMap.get(char);
+    if (!imageSrc) return null;
 
-  let listItems = [];
-  let d;
-  showTimeDigits.forEach((element) => {
-    d = digitsMap.get(element);
-    if (element === ":") {
-      listItems.push(<img src={d} className="digit colon" alt="Colon" />);
-    }
-    else {
-      listItems.push(<img src={d} className="digit" alt={"Digit" + element} />);
-    }
-    
+    // Apply different styles for the colon
+    const imageStyle = char === ":" ? styles.colon : styles.digit;
+
+    return <img key={index} src={imageSrc} alt={char} style={imageStyle} />;
   });
 
-  return (
-      <div className="App">
-          <div align="center" className="digit-container">
-            {listItems}
-          </div>
-          {/* <div className="title-container">
-            <h1 className="title" align="center">姉睇</h1>
-            <div className="credit-container">
-              <h2 className="credit" align="center">Designed by Declan Boushy</h2> 
-              <h2 className="credit" align="center">Developed by Matthew Maciesowicz</h2>
-            </div>
-          </div> */}
-      </div>
-  );
+    return (
+      <div>
+        <div className="digit-container">
+            <div align="center" style={styles.clock}>{timeImages}</div>
+            {/* <div className="title-container">
+              <h1 className="title" align="center">姉睇</h1>
+              <div className="credit-container">
+                <h2 className="credit" align="center">Designed by Declan Boushy</h2> 
+                <h2 className="credit" align="center">Developed by Matthew Maciesowicz</h2>
+              </div>
+            </div> */}
+            
+        </div> 
+        {time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, })}
+    </div>
+    );
 }
+
+const styles = {
+  clock: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  digit: {
+    width: "12vw",
+    margin: "0 1vw",
+  },
+  colon: {
+    width: "2vw",
+    margin: "0 1vw",
+  },
+};
 
 export default App;
