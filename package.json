@@ -1,6 +1,5 @@
 {
   "name": "kanji-clock",
-  "homepage": "https://www.maciesowicz.ca/time",
   "version": "0.1.0",
   "private": true,
   "scripts": {
