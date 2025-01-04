@@ -158,7 +158,7 @@ function App() {
   });
 
     // const formattedTime = timeString;
-    const formattedTime = "15:15";
+    const formattedTime = "00:15";
     const isSpecialTime = formattedTime === "15:15";
     
     const styles = {
@@ -197,12 +197,12 @@ function App() {
         color: "black",
         fontStyle: isSpecialTime ? "normal" :'italic',
         whiteSpace: isSpecialTime ? "nowrap" : "none",
-        margin: isSpecialTime ? "none" : "0 1em 0 1em",
+        margin: "0 0 0 0",
         // overflow: "hidden",
-        position: isSpecialTime ? "absolute" : "none",
-        bottom: isSpecialTime ? "0.5em" : "none",
-        left: isSpecialTime ? "50%" : "none",
-      transform: isSpecialTime ? "translateX(-50%)" : "none",
+        position: "absolute",
+        bottom: "0.5em",
+        left: "50%",
+        transform: "translateX(-50%)",
       },
       lowerText: {
         fontSize: isSpecialTime ? "10vmin" :"3vmin",
@@ -211,7 +211,7 @@ function App() {
         color: "black",
         fontStyle: isSpecialTime ? "normal" :'italic',
         // whiteSpace: "nowrap",
-        margin: isSpecialTime ? "0.5em 1em 0 1em" : "0 1em 0 1em",
+        margin: "0.5em 1em 0 1em",
         overflow: "hidden",
       },
       textContainer: {
@@ -219,7 +219,7 @@ function App() {
         flexDirection: "column",
         justifyContent: "space-between", // Distribute lines evenly
         height: "100%", // Take full height of the parent
-        position: "relative"
+        position: "relative",
       },
     };
     
@@ -260,14 +260,6 @@ function App() {
         <div align="center" style={styles.clock}>
           {timeImages}
         </div>
-        {/* Uncomment the title and credits if needed */}
-        {/* <div className="title-container">
-              <h1 className="title" align="center">姉睇</h1>
-              <div className="credit-container">
-                <h2 className="credit" align="center">Designed by Declan Boushy</h2> 
-                <h2 className="credit" align="center">Developed by Matthew Maciesowicz</h2>
-              </div>
-            </div> */}
       </div>
       <div style={styles.textContainer}>
       {lowerText && (
