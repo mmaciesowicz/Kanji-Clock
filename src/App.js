@@ -157,15 +157,15 @@ function App() {
     hour12: false,
   });
 
-    // const formattedTime = timeString;
-    const formattedTime = "00:15";
+    const formattedTime = timeString;
+    // const formattedTime = "00:15";
     const isSpecialTime = formattedTime === "15:15";
     
     const styles = {
       container: {
         height: "100vh",
         display: "grid",
-        gridTemplateRows: "repeat(3, 1fr)",
+        gridTemplateRows: "1fr auto 1fr",
         textAlign: "center",
         alignItems: "center"
       },
@@ -191,28 +191,30 @@ function App() {
         margin: "0 2vw",
       },
       upperText: {
-        fontSize: isSpecialTime ? "10vmin" :"3vmin",
-        lineHeight: isSpecialTime ? "10vh": "8vh",
+        display: "flex",
+        flexDirection: "column", // Ensure vertical alignment
+        justifyContent: "space-evenly", // Distribute lines evenly
+        height: "100%", // Fill available container height
+        fontSize: isSpecialTime ? "9vmin" :"3vmin", // Base font size
+        lineHeight: "1.2", // Adjust spacing between lines
         textAlign: "center",
-        color: "black",
-        fontStyle: isSpecialTime ? "normal" :'italic',
-        whiteSpace: isSpecialTime ? "nowrap" : "none",
-        margin: "0 0 0 0",
-        // overflow: "hidden",
-        position: "absolute",
-        bottom: "0.5em",
-        left: "50%",
-        transform: "translateX(-50%)",
+        color: "#231f20",
+        fontWeight: "bold",
+        fontStyle:  isSpecialTime ? "normal" : "italic",
+        paddingBottom: "3vh"
       },
       lowerText: {
-        fontSize: isSpecialTime ? "10vmin" :"3vmin",
-        lineHeight: isSpecialTime ? "10vh": "8vh",
+        display: "flex",
+        flexDirection: "column", // Ensure vertical alignment
+        justifyContent: "space-evenly", // Distribute lines evenly
+        height: "100%", // Fill available container height
+        fontSize: isSpecialTime ? "9vmin" :"3vmin", // Base font size
+        lineHeight: "1.2", // Adjust spacing between lines
         textAlign: "center",
-        color: "black",
-        fontStyle: isSpecialTime ? "normal" :'italic',
-        // whiteSpace: "nowrap",
-        margin: "0.5em 1em 0 1em",
-        overflow: "hidden",
+        fontStyle:  isSpecialTime ? "normal" : "italic",
+        color: "#231f20",
+        fontWeight: "bold",
+        paddingTop: "3vh"
       },
       textContainer: {
         display: "flex",
@@ -239,14 +241,14 @@ function App() {
 
   return (
     <div style={styles.container}>
-      <div style={styles.numberedClock}>
+      {/* <div style={styles.numberedClock}>
       {time.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit",
         hour12: false,
       })}
-      </div>
+      </div> */}
       <div style={styles.textContainer}>
         {upperText && (
             <div style={styles.upperText}>
