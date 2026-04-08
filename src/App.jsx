@@ -10,7 +10,7 @@ import digit7 from './images/Digit7.svg';
 import digit8 from './images/Digit8.svg';
 import digit9 from './images/Digit9.svg';
 import colon from './images/Colon.svg';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 const digitsMap = new Map([
